@@ -3,7 +3,7 @@
 /**
  *
  * Plugin Name:       Nordic Gallery Loader
- * Plugin URI:        /////////////////////////////////// https://premmerce.com
+ * Plugin URI:        https://github.com/Vladimir988/Nordic-Gallery-Loader
  * Description:
  * Version:           1.0
  * Author:            Vladimir
