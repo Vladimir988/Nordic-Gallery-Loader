@@ -1,0 +1,18 @@
+{
+  "name": "nordic-gallery-loader",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "Vladimir"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "NordicGLoader\\": "src"
+    }
+  },
+  "require": {
+    "premmerce/wordpress-sdk": "^2.0"
+  }
+
+}

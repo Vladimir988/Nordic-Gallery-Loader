@@ -1,0 +1,26 @@
+div.woocommerce-product-gallery {
+    margin-top: 20px;
+}
+
+.slider-nav.thumb-image {
+    position: absolute;
+    top: 10px;
+    left: 25px;
+    width: 100px;
+}
+
+.slider-nav.thumb-image .thumbnail-image {
+    width: auto;
+    border: 2px solid white;
+    margin: 3px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.slider-nav.thumb-image .thumbnail-image.slick-active {
+    opacity: 0.3;
+}
+
+.slider-nav.thumb-image .thumbnail-image.slick-active.slick-current {
+    opacity: 1;
+}
