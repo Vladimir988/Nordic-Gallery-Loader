@@ -33,7 +33,7 @@ if ( ! defined( 'WPINC' ) ) {
                     foreach ($galleryArray as $item) {
                         echo sprintf(
                             '<div class="thumbnail-image"><div class="thumbImg"><img src="%s" alt="%s"></div></div>',
-                            $item['gallery_thumb_src'],
+                            $item['src'],
                             $item['alt']
                         );
                     }

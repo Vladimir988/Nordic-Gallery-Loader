@@ -17,43 +17,42 @@
                                 slidesToShow: 1,
                                 slidesToScroll: 1,
                                 arrows: false,
-                                fade: true,
+                                infinite: false,
                                 asNavFor: '.slider-nav'
                             });
 
                             $('.slider-nav').slick({
                                 slidesToShow: 4,
                                 slidesToScroll: 1,
-                                vertical: true,
                                 asNavFor: '.slider-for',
-                                dots: false,
+                                dots: true,
                                 arrows: false,
                                 focusOnSelect: true,
-                                verticalSwiping: true,
+                                infinite: false,
                                 responsive: [
                                     {
                                         breakpoint: 992,
                                         settings: {
-                                            vertical: false,
+                                            infinite: true,
                                         }
                                     },
                                     {
                                         breakpoint: 768,
                                         settings: {
-                                            vertical: false,
+                                            infinite: true,
                                         }
                                     },
                                     {
                                         breakpoint: 580,
                                         settings: {
-                                            vertical: false,
+                                            infinite: true,
                                             slidesToShow: 3,
                                         }
                                     },
                                     {
                                         breakpoint: 380,
                                         settings: {
-                                            vertical: false,
+                                            infinite: true,
                                             slidesToShow: 2,
                                         }
                                     }

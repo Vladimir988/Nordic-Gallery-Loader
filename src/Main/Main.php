@@ -85,7 +85,6 @@ class Main
             'caption'           => '',
             'src'               => '',
             'alt'               => '',
-            'gallery_thumb_src' => '',
         ];
         $attachment = get_post($attachmentId);
 
@@ -106,13 +105,8 @@ class Main
                 $alt_text[] = wp_strip_all_tags(get_the_title($product->get_id()));
             }
 
-            $alt_text                     = array_filter($alt_text);
-            $options['alt']               = isset($alt_text[0]) ? $alt_text[0] : '';
-            $gallery_thumb                = wc_get_image_size('gallery_thumbnail');
-            $gallery_thumb_size           = apply_filters('woocommerce_gallery_thumbnail_size', array($gallery_thumb['width'], $gallery_thumb['height']));
-            $gallery_thumb_src            = wp_get_attachment_image_src($attachmentId, $gallery_thumb_size);
-            $options['gallery_thumb_src'] = esc_url($gallery_thumb_src[0]);
-
+            $alt_text       = array_filter($alt_text);
+            $options['alt'] = isset($alt_text[0]) ? $alt_text[0] : '';
         }
 
         return $options;
