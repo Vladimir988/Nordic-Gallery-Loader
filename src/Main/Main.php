@@ -23,7 +23,7 @@ class Main
     /**
      * @const plugin version
      */
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
 
     const OPTION_META_KEY = 'option_variation_gallery_images';
     const AJAX_ACTION     = 'get_variation_gallery_html';
