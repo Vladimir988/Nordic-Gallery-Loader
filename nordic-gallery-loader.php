@@ -5,7 +5,7 @@
  * Plugin Name:       Nordic Gallery Loader
  * Plugin URI:        https://github.com/Vladimir988/Nordic-Gallery-Loader
  * Description:
- * Version:           1.0
+ * Version:           1.1
  * Author:            Vladimir
  * Author URI:        https://github.com/Vladimir988
  * License:           GPL-2.0+
