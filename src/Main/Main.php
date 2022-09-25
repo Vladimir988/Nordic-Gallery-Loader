@@ -23,7 +23,7 @@ class Main
     /**
      * @const plugin version
      */
-    const VERSION = '1.0.1';
+    const VERSION = '1.0.2';
 
     const OPTION_META_KEY = 'option_variation_gallery_images';
     const AJAX_ACTION     = 'get_variation_gallery_html';
@@ -42,29 +42,38 @@ class Main
 
     public function enqueueScripts()
     {
-        wp_enqueue_script($this->textdomain, $this->fileManager->locateAsset('frontend/js/common.js'), ['jquery'], self::VERSION);
-        wp_localize_script($this->textdomain, 'wpData', [
-            'wooUrl'  => WC_AJAX::get_endpoint('get_variation'),
-            'ajaxUrl' => admin_url('admin-ajax.php'),
-        ]);
-        wp_enqueue_script($this->textdomain . '-slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', ['jquery', 'jquery-migrate']);
+        global $post;
 
-        wp_enqueue_style($this->textdomain, $this->fileManager->locateAsset('frontend/css/style.css'), [], self::VERSION);
-        wp_enqueue_style($this->textdomain . '-slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css');
-        wp_enqueue_style($this->textdomain . '-slick-theme', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css');
+        if (! is_admin() && $post->post_type == 'product') {
+            wp_enqueue_script($this->textdomain, $this->fileManager->locateAsset('frontend/js/common.js'), ['jquery'], self::VERSION);
+            wp_localize_script($this->textdomain, 'wpData', [
+                'wooUrl'  => WC_AJAX::get_endpoint('get_variation'),
+                'ajaxUrl' => admin_url('admin-ajax.php'),
+            ]);
+            wp_enqueue_script($this->textdomain . '-slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js',
+                ['jquery', 'jquery-migrate']);
+
+            wp_enqueue_style($this->textdomain, $this->fileManager->locateAsset('frontend/css/style.css'), [], self::VERSION);
+            wp_enqueue_style($this->textdomain . '-slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css');
+            wp_enqueue_style($this->textdomain . '-slick-theme', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css');
+        }
     }
 
     public function woocommerceVariations($availableVariation, $variationProductObject, $variation)
     {
         $variationId               = absint($variation->get_id());
         $hasVariationGalleryImages = (bool)get_post_meta($variationId, 'rtwpvg_images', true);
-        if ($hasVariationGalleryImages) {
-            $galleryImages = (array)get_post_meta($variationId, 'rtwpvg_images', true);
-        } else {
-            $galleryImages = $variationProductObject->get_gallery_image_ids();
+
+        if (! $hasVariationGalleryImages) {
+            return $availableVariation;
         }
 
-        array_unshift($galleryImages, absint(get_post_meta($variationId, '_thumbnail_id', true)));
+        $galleryImages = (array)get_post_meta($variationId, 'rtwpvg_images', true);
+        $mainImageId   = absint(get_post_meta($variationId, '_thumbnail_id', true));
+
+        if ($mainImageId) {
+            array_unshift($galleryImages, $mainImageId);
+        }
 
         $gallery       = [];
         $galleryImages = array_values(array_unique($galleryImages));
@@ -80,11 +89,11 @@ class Main
     public function getGalleryImageOptions($attachmentId, $productId = false)
     {
         $options = [
-            'image_id'          => '',
-            'title'             => '',
-            'caption'           => '',
-            'src'               => '',
-            'alt'               => '',
+            'image_id' => '',
+            'title'    => '',
+            'caption'  => '',
+            'src'      => '',
+            'alt'      => '',
         ];
         $attachment = get_post($attachmentId);
 
@@ -101,7 +110,7 @@ class Main
             ];
 
             if ($productId) {
-                $product = wc_get_product($productId);
+                $product    = wc_get_product($productId);
                 $alt_text[] = wp_strip_all_tags(get_the_title($product->get_id()));
             }
 

@@ -25,6 +25,7 @@ class NordicGLoaderPlugin
         $this->fileManager = new FileManager($mainFile);
 
         add_action('plugins_loaded', [$this, 'loadTextDomain']);
+        add_action('plugins_loaded', [$this, 'run']);
     }
 
     /**

@@ -29,6 +29,4 @@ call_user_func(function () {
     register_deactivation_hook(__FILE__, [$main, 'deactivate']);
 
     register_uninstall_hook(__FILE__, [NordicGLoaderPlugin::class, 'uninstall']);
-
-    $main->run();
 });
